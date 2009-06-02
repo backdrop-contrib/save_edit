@@ -1,0 +1,5 @@
+; $Id:
+name = Save & Edit
+description = Gives a "Save & Edit" button on node pages.
+package = Administration
+core = 6.x
