@@ -93,7 +93,7 @@ function save_edit_admin_settings() {
   $form['save_edit_this_settings']['save_edit_publish_button_value'] = array(
     '#type' => 'textfield',
     '#title' => t('Text to use for Publish button'),
-    '#description' => t('This is the default text that will be used for the Publish button. <em>Note: This button will ONLY appear if you have checked either of the above options that manipulate the default publishing actions provided by Drupal.'),
+    '#description' => t('This is the default text that will be used for the Publish button. <em>Note: This button will ONLY appear if you have checked either of the above options that manipulate the default publishing actions provided by Drupal.</em>'),
     '#default_value' => variable_get('save_edit_publish_button_value', 'Publish'),
     '#required' => TRUE
   );
@@ -114,11 +114,8 @@ function save_edit_admin_settings() {
 }
 /**
  * Implementation of hook_form_alter().
- * @todo include various "basic" functions that modify the form
- * @todo include a "hide preview" button
  */
 function save_edit_form_alter(&$form, $form_state, $form_id) {
-	//drupal_set_message('<pre>'.print_r($form, TRUE).'</pre>');
 	$node_types = variable_get('save_edit_node_types', array());
 	$form_type = $form['type']['#value'];
   if ($form['#id'] == 'node-form' && $node_types[$form_type] && user_access('use save and edit')) {
@@ -156,7 +153,6 @@ function save_edit_form_alter(&$form, $form_state, $form_id) {
     // @todo read up on D6 submit handlers and how to simply append this 
     // handler to any handler(s) being called to the normal submit function
     $form['buttons']['save_edit']['#submit'] = array('redirect_save_edit_submit');
-    //$form['#submit']['redirect_save_edit_submit'] = array();
   }
 }
 /**
