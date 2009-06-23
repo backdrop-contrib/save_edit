@@ -1,5 +1,5 @@
 <?php
-// $Id:
+// $Id$
 /**
  * Save & Edit (http://drupal.org/project/save_edit)
  * Provides a button that gives users the option to 
@@ -71,12 +71,26 @@ function save_edit_admin_settings() {
     '#default_value' => variable_get('save_edit_button_value', 'Save & Edit'),
     '#required' => TRUE
   );
+  $form['save_edit_this_settings']['save_edit_button_weight'] = array(
+    '#type' => 'weight',
+    '#delta' => 10,
+    '#description' => t('You may adjust the positioning left to right on the button sections using the weight fields for each button type.'),
+    '#title' => t('Save & Edit Button Weight'),
+    '#default_value' => variable_get('save_edit_button_weight', 4),
+  );
   $form['save_edit_this_settings']['save_edit_default_save_button_value'] = array(
     '#type' => 'textfield',
     '#title' => t('Text to use for default Save button'),
     '#description' => t('This will override the default "Save" button text to something more in line with adding the "Save & Edit" and "Save & Publish" options.'),
     '#default_value' => variable_get('save_edit_default_save_button_value', 'Save'),
     '#required' => TRUE
+  );
+  $form['save_edit_this_settings']['save_edit_default_save_button_weight'] = array(
+    '#type' => 'weight',
+    '#delta' => 10,
+    '#description' => t('You may adjust the positioning left to right on the button sections using the weight fields for each button type.'),
+    '#title' => t('Default Save Button Weight'),
+    '#default_value' => variable_get('save_edit_default_save_button_weight', 5),
   );
   $form['save_edit_this_settings']['save_edit_unpublish'] = array(
     '#type' => 'checkbox',
@@ -96,6 +110,13 @@ function save_edit_admin_settings() {
     '#description' => t('This is the default text that will be used for the Publish button. <em>Note: This button will ONLY appear if you have checked either of the above options that manipulate the default publishing actions provided by Drupal.</em>'),
     '#default_value' => variable_get('save_edit_publish_button_value', 'Publish'),
     '#required' => TRUE
+  );
+  $form['save_edit_this_settings']['save_edit_publish_button_weight'] = array(
+    '#type' => 'weight',
+    '#delta' => 10,
+    '#description' => t('You may adjust the positioning left to right on the button sections using the weight fields for each button type.'),
+    '#title' => t('Publish Button Weight'),
+    '#default_value' => variable_get('save_edit_publish_button_weight', 7),
   );
   $form['where_to_save_edit'] = array(
     '#type' => 'fieldset',
@@ -124,7 +145,7 @@ function save_edit_form_alter(&$form, $form_state, $form_id) {
       '#type' => 'submit',
       '#access' => user_access('use save and edit'),
       '#value' => t(variable_get('save_edit_button_value', 'Save & Edit')),
-      '#weight' => 4,
+      '#weight' => variable_get('save_edit_button_weight', 4),
       '#submit' => array('redirect_save_edit_submit'),
     );
     // now if we have chosen to use the auto-unpublish feature, we should
@@ -134,7 +155,7 @@ function save_edit_form_alter(&$form, $form_state, $form_id) {
 	      '#type' => 'submit',
 	      '#access' => user_access('use save and edit'),
 	      '#value' => t(variable_get('save_edit_publish_button_value', 'Save & Publish')),
-	      '#weight' => 7,
+	      '#weight' => variable_get('save_edit_publish_button_weight', 7),
 	      '#submit' => array('redirect_save_edit_submit'),
 	    );
     }
@@ -144,7 +165,7 @@ function save_edit_form_alter(&$form, $form_state, $form_id) {
 	    '#type' => 'submit',
 	    '#access' => !variable_get('node_preview', 0) || (!form_get_errors() && isset($form_state['node_preview'])),
 	    '#value' => t(variable_get('save_edit_default_save_button_value', 'Save')),
-	    '#weight' => 5,
+	    '#weight' => variable_get('save_edit_default_save_button_weight', 5),
 	    '#submit' => array('node_form_submit'),
 	  );
     // declare default handler & then the custom one
