@@ -203,16 +203,19 @@ function redirect_save_edit_submit($form, &$form_state) {
   if ($form_state['clicked_button']['#id'] == 'edit-save-edit') {
   	// change redirect location
   	if ($_REQUEST['destination']) {
-  		// will try to hold the option to return to the admin/content/node after saving or publishing
-  		// without this, it will redirect back to the node page
-  		$form_state['redirect'] = 'node/'. $form_state['nid']. '/edit';
-  		// not working yet, and url() building is breaking for me here
-      //$form_state['redirect'] = 'node/'. $form_state['nid']. '/edit%3Fdestination='. $_REQUEST['destination'];
+  		$form_state['redirect'] = url('node/'. $form_state['nid']. '/edit', 
+  		  array(
+  		    'query' => array(
+  		      'destination' => $_REQUEST['destination'], 
+  		    ),
+  		    'absolute' => TRUE,  		    
+  		  )
+  		); 
   		unset($_REQUEST['destination']);
   	}
   	else {
   		// just go back to the form edit page, and dont worry about the redirect
-  		$form_state['redirect'] = 'node/'. $form_state['nid']. '/edit';
+  		$form_state['redirect'] = 'node/'. $form_state['nid']. '/edit'; 
   	}
   }
 }
