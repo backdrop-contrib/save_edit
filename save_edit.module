@@ -15,24 +15,6 @@
  */
 
 /**
- * Provide online user help.
- *
- * @param $path
- * @param $arg
- * @return
- *   Help text
- */
-function save_edit_help($path, $arg) {
-  switch ($path) {
-  	case 'admin/settings/save-edit':
-  		return '<p>'. t('Save & Edit adds a "Save and edit" button to the node add and node configure forms. The module also provides options to modify the way the "Publish" feature works when using Save & Edit. If the modifications are enabled to the Publish feature, when a node is unpublished, it will also create a "Publish" button that will obviously Save & Publish a node that was previously marked as Unpublished.') .'</p>';
-    case 'admin/help#save_edit':
-      return '<p>'. t('Save & Edit adds a "Save and edit" button to the node add and node configure forms. The module also provides options to modify the way the "Publish" feature works when using Save & Edit. If the modifications are enabled to the Publish feature, when a node is unpublished, it will also create a "Publish" button that will obviously Save & Publish a node that was previously marked as Unpublished.') .'</p>';
-    default:
-      return '';
-  }
-}
-/**
  * Implementation of hook_perm().
  */
 function save_edit_perm() {
