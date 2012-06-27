@@ -3,4 +3,3 @@ description = Gives a "<a href="http://drupal.org/project/save_edit">Save & Edit
 package = Administration
 core = 7.x
 
-files[] = save_edit.module
