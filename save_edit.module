@@ -84,7 +84,7 @@ function save_edit_form_alter(&$form, $form_state, $form_id) {
     $form['actions']['save_edit'] = array(
       '#type' => 'submit',
       '#access' => user_access('use save and edit'),
-      '#value' => t(check_plain(variable_get('save_edit_button_value', 'Save and Edit'))),
+      '#value' => t(variable_get('save_edit_button_value', 'Save and Edit')),
       '#weight' => variable_get('save_edit_button_weight', 4),
       '#submit' => array('redirect_save_edit_submit'),
     );
