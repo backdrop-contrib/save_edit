@@ -1,7 +1,12 @@
 <?php
+
 /**
  * @file
- * Admin Settings form for Save & Edit
+ * Admin Settings form for Save & Edit.
+ */
+
+/**
+ * Implements hook_settings().
  */
 function save_edit_admin_settings() {
   $form['save_edit_this_settings'] = array(
@@ -9,14 +14,14 @@ function save_edit_admin_settings() {
     '#title' => t('Save & Edit General Features'),
     '#description' => t('General settings that will change the usage and/or appearance of the <a href="http://drupal.org/project/save_edit">Save & Edit</a> module.'),
     '#collapsible' => TRUE,
-    '#collapsed' => FALSE
+    '#collapsed' => FALSE,
   );
   $form['save_edit_this_settings']['save_edit_button_value'] = array(
     '#type' => 'textfield',
     '#title' => t('Text to use for Save & Edit button'),
     '#description' => t('This is the default text that will be used for the button at the bottom of the node form.<br />It would be best to use familiar terms like "<strong>Save & Edit</strong>" or "<strong>Apply</strong>" so that users can easily understand the feature/function related to this option.'),
     '#default_value' => variable_get('save_edit_button_value', 'Save and Edit'),
-    '#required' => TRUE
+    '#required' => TRUE,
   );
   $form['save_edit_this_settings']['save_edit_button_weight'] = array(
     '#type' => 'weight',
@@ -30,7 +35,7 @@ function save_edit_admin_settings() {
     '#title' => t('Text to use for default Save button'),
     '#description' => t('This will override the default "Save" button text to something more in line with adding the "Save & Edit" and "Save & Publish" options.'),
     '#default_value' => variable_get('save_edit_default_save_button_value', 'Save'),
-    '#required' => TRUE
+    '#required' => TRUE,
   );
   $form['save_edit_this_settings']['save_edit_default_save_button_weight'] = array(
     '#type' => 'weight',
@@ -74,7 +79,7 @@ function save_edit_admin_settings() {
     '#title' => t('Text to use for Publish button'),
     '#description' => t('This is the default text that will be used for the Publish button. <em>Note: This button will ONLY appear if you have checked either of the above options that manipulate the default publishing actions provided by Drupal.</em>'),
     '#default_value' => variable_get('save_edit_publish_button_value', 'Publish'),
-    '#required' => TRUE
+    '#required' => TRUE,
   );
   $form['save_edit_this_settings']['save_edit_publish_button_weight'] = array(
     '#type' => 'weight',
@@ -88,13 +93,13 @@ function save_edit_admin_settings() {
     '#title' => t('Node Types'),
     '#description' => t('Set the node types you want to display links for.'),
     '#collapsible' => FALSE,
-    '#collapsed' => FALSE
+    '#collapsed' => FALSE,
   );
   $form['where_to_save_edit']['save_edit_node_types'] = array(
     '#type' => 'checkboxes',
     '#title' => t('Node types'),
     '#default_value' => variable_get('save_edit_node_types', array()),
-    '#options' => node_type_get_names()
+    '#options' => node_type_get_names(),
   );
 
   return system_settings_form($form);
