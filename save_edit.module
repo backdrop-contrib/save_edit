@@ -90,7 +90,7 @@ function save_edit_form_alter(&$form, $form_state, $form_id) {
     );
     // now if we have chosen to use the auto-unpublish feature, we should
     // create a Publish button to add a clear workflow
-    if ((variable_get('save_edit_unpublish', 0) || variable_get('save_edit_unpublish_new_only', 0)) && !$form['#node']->status) {
+    if ((variable_get('save_edit_unpublish', 0) || variable_get('save_edit_unpublish_new_only', 0)) && !$form['#node']->status && !variable_get('save_edit_hide_publish', 0)) {
       $form['actions']['save_edit_publish'] = array(
         '#type' => 'submit',
         '#access' => user_access('use save and edit'),

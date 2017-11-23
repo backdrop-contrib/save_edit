@@ -62,6 +62,12 @@ function save_edit_admin_settings() {
     '#default_value' => variable_get('save_edit_hide_default_save', 0),
     '#description' => t('This will hide the Save button.'),
   );
+  $form['save_edit_this_settings']['save_edit_hide_publish'] = array(
+    '#type' => 'checkbox',
+    '#title' => t('Hide the Publish button'),
+    '#default_value' => variable_get('save_edit_hide_publish', 0),
+    '#description' => t('This will hide the Publish button.'),
+  );
   $form['save_edit_this_settings']['save_edit_hide_default_preview'] = array(
     '#type' => 'checkbox',
     '#title' => t('Hide default Preview button'),
