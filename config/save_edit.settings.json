@@ -1,0 +1,16 @@
+{
+  "_config_name": "save_edit.settings",
+  "save_edit_node_types": {},
+  "save_edit_button_value": "Save & Edit",
+  "save_edit_button_weight": 4,
+  "save_edit_unpublish": 0,
+  "save_edit_unpublish_new_only": 0,
+  "save_edit_hide_publish": 0,
+  "save_edit_publish_button_value": "Save & Publish",
+  "save_edit_publish_button_weight": 7,
+  "save_edit_hide_default_save": 0,
+  "save_edit_hide_default_preview": 0,
+  "save_edit_hide_default_delete": 0,
+  "save_edit_default_save_button_value": "Save",
+  "save_edit_default_save_button_weight": 5
+}
