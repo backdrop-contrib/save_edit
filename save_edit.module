@@ -77,8 +77,16 @@ function save_edit_form_alter(&$form, $form_state, $form_id) {
       '#access' => user_access('use save and edit'),
       '#value' => t($config->get('save_edit_button_value')),
       '#weight' => $config->get('save_edit_button_weight'),
-      '#submit' => array('redirect_save_edit_submit'),
     );
+    $form['actions']['save_edit']['#submit'] = $form['actions']['submit']['#submit'];
+    // Unset node submit if it's present, we'll handle that in
+    // redirect_save_edit_submit().
+    foreach ($form['actions']['save_edit']['#submit'] as $key => $value) {
+      if ($value == 'node_form_submit') {
+        unset($form['actions']['save_edit']['#submit'][$key]);
+      }
+    }
+    $form['actions']['save_edit']['#submit'][] = 'redirect_save_edit_submit';
 
     // Now if we have chosen to use the auto-unpublish feature, we should
     // create a Publish button to add a clear workflow.
@@ -88,8 +96,16 @@ function save_edit_form_alter(&$form, $form_state, $form_id) {
         '#access' => user_access('use save and edit'),
         '#value' => t($config->get('save_edit_publish_button_value')),
         '#weight' => $config->get('save_edit_publish_button_weight', 7),
-        '#submit' => array('redirect_save_edit_submit'),
       );
+      $form['actions']['save_edit_publish']['#submit'] = $form['actions']['submit']['#submit'];
+      // Unset node submit if it's present, we'll handle that in
+      // redirect_save_edit_submit().
+      foreach ($form['actions']['save_edit']['#submit'] as $key => $value) {
+        if ($value == 'node_form_submit') {
+          unset($form['actions']['save_edit']['#submit'][$key]);
+        }
+      }
+      $form['actions']['save_edit_publish']['#submit'][] = 'redirect_save_edit_submit';
     }
 
     if ($config->get('save_edit_hide_default_save')) {
