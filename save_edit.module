@@ -149,22 +149,36 @@ function redirect_save_edit_submit($form, &$form_state) {
   node_form_submit($form, $form_state);
   // Only redirect if using the Save & Edit button.
   if ($form_state['clicked_button']['#id'] == 'edit-save-edit' || $form_state['clicked_button']['#id'] == 'edit-actions-save-edit') {
-    // Change redirect location.
+    $query_string = array();
     if (isset($_REQUEST['destination'])) {
+      $query_string['destination'] = $_REQUEST['destination'];
+    }
+    // If the content lock module is installed do things with the lock token.
+    if (module_exists('content_lock')) {
+      if (isset($_REQUEST['content_lock_token'])) {
+        $query_string['content_lock_token'] = $_REQUEST['content_lock_token'];
+      }
+      else {
+        $query_string['content_lock_token'] = backdrop_get_token('node/' . $form_state['nid'] . '/edit');
+      }
+    }
+
+    if (count($query_string) > 0) {
       $form_state['redirect'] = url('node/' . $form_state['nid'] . '/edit',
         array(
-          'query' => array(
-            'destination' => $_REQUEST['destination'],
-          ),
+          'query' => $query_string,
           'absolute' => TRUE,
         )
       );
-      $_GET['destination'] = $form_state['redirect'];
-      unset($_REQUEST['destination']);
     }
     else {
       // Just go back to the form edit page, and dont worry about the redirect.
       $form_state['redirect'] = 'node/' . $form_state['nid'] . '/edit';
+    }
+
+    if (isset($_REQUEST['destination'])) {
+      $_GET['destination'] = $form_state['redirect'];
+      unset($_REQUEST['destination']);
     }
   }
 }
