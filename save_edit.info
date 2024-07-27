@@ -3,6 +3,8 @@ description = Gives a Save & Edit button and related publishing option on node p
 backdrop = 1.x
 type = module
 
+maintainers[yorkshire-pudding] = Martin Price
+
 configure = admin/config/content/save-edit
 
 package = Administration
