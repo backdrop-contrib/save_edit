@@ -130,6 +130,9 @@ function save_edit_form_alter(&$form, $form_state, $form_id) {
  */
 function redirect_save_edit_submit($form, &$form_state) {
   $config = config('save_edit.settings');
+  // Identify the clicked button by its form key rather than its HTML id;
+  // AJAX rebuilds suffix ids (edit-save-edit--2), breaking id comparison.
+  $clicked_key = end($form_state['clicked_button']['#array_parents']);
   // We will first check to see if they want to auto-unpublish, and make
   // modifications if so before submitting the node.
   // ONLY do something on new nodes.
@@ -142,13 +145,13 @@ function redirect_save_edit_submit($form, &$form_state) {
   }
   // WAIT... if someone clicked the Publish button, maybe we should retick that
   // option now.
-  if ($form_state['clicked_button']['#id'] == 'edit-save-edit-publish') {
+  if ($clicked_key == 'save_edit_publish') {
     $form_state['values']['status'] = 1;
   }
   // Call default node save/submit function.
   node_form_submit($form, $form_state);
   // Only redirect if using the Save & Edit button.
-  if ($form_state['clicked_button']['#id'] == 'edit-save-edit' || $form_state['clicked_button']['#id'] == 'edit-actions-save-edit') {
+  if ($clicked_key == 'save_edit') {
     $query_string = array();
     if (isset($_REQUEST['destination'])) {
       $query_string['destination'] = $_REQUEST['destination'];
